@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class HillCipher {
     public static int[][] keymat = {
         {1, 2, 1},
@@ -26,7 +25,7 @@ public class HillCipher {
     private static String padText(String text) {
         int n = text.length() % 3;
         if (n != 0) {
-            for (int i = 1; i < 3 - n; i++) {
+            for (int i = 0; i < 3 - n; i++) {
                 text += 'X';
             }
         }
