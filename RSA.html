@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA ALGORITHM</title>
+</head>
+<body>
+    <center>
+        <h1>RSA Algorithm</h1>
+        <h2>Implemented using HTML and JS</h2>
+        <hr>
+        <table>
+            <tr><td>Enter the First Prime Number:</td><td><input type="number" value="53" id="p"></td></tr>
+            <tr><td>Enter the Second Prime Number:</td><td><input type="number" value="59" id="q"></td></tr>
+            <tr><td>Enter the Message Cipher [A=1, B=2, ...]:</td><td><input type="number" value="89" id="msg"></td></tr>
+            <tr><td>Public Key (n):</td><td><p id="publickey"></p></td></tr>
+            <tr><td>Exponent (e): </td><td><p id="exponent"></p></td></tr>
+            <tr><td>Private Key (d):</td><td><p id="privatekey"></p></td></tr>
+            <tr><td>Cipher Text:</td><td><p id="ciphertext"></p></td></tr>
+            <tr><td><button onclick="applyRSA()">APPLY RSA</button></td></tr>
+        </table>
+    </center>
+
+    <script>
+        function applyRSA() {
+            let p = +document.getElementById("p").value,
+                q = +document.getElementById("q").value,
+                msg = +document.getElementById("msg").value,
+                gcd = (a, b) => b ? gcd(b, a % b) : a,
+                n = p * q,
+                t = (p - 1) * (q - 1),
+                e = [...Array(t)].findIndex((_, i) => i > 1 && gcd(i, t) === 1) || 2,
+                d = [...Array(10)].find(i => (1 + i * t) % e === 0) * t / e || 1,
+                ct = Math.pow(msg, e) % n;
+
+            document.getElementById("publickey").innerHTML = n;
+            document.getElementById("exponent").innerHTML = e;
+            document.getElementById("privatekey").innerHTML = d;
+            document.getElementById("ciphertext").innerHTML = ct;
+        }
+    </script>
+</body>
+</html>
